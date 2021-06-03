@@ -4,7 +4,7 @@ import streamlit as st
 import seaborn as sns
 from streamlit.elements import selectbox
 st.title('Northern Island Goods Vehicle Operators License Record')
-data = pd.read_csv('/home/ashiq/north.csv')
+data = pd.read_csv('north.csv')
 st.header('licence Details')
 st.write(data)
 

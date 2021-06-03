@@ -1,0 +1,38 @@
+import numpy as np
+import pandas as pd
+import streamlit as st
+import seaborn as sns
+from streamlit.elements import selectbox
+st.title('Northern Island Goods Vehicle Operators License Record')
+data = pd.read_csv('/home/ashiq/north.csv')
+st.header('licence Details')
+st.write(data)
+
+st.header('Details of licence which are Restricted')
+dataframe = pd.DataFrame(data) 
+LType =dataframe.groupby('LicenceType')
+Ltyperes=LType.get_group('Restricted')
+pd.DataFrame(Ltyperes)
+st.write(Ltyperes)
+st.header('Licence type with Standard National')
+LTypestand=LType.get_group('Standard National')
+pd.DataFrame(LTypestand)
+st.write(LTypestand)
+st.text('No: of Rows&Columns:{a}'.format(a=LTypestand.shape))
+st.header('Licence type with Standard International')
+LTypestandInt=LType.get_group('Standard International')
+pd.DataFrame(LTypestandInt)
+st.write(LTypestandInt)
+st.text('No: of Rows&columns:{a}'.format(a=LTypestandInt.shape))
+correlation=pd.DataFrame(dataframe.corr())
+st.header('Correlation of dataset')
+st.write(correlation)
+sn=sns.heatmap(correlation)
+st.set_option('deprecation.showPyplotGlobalUse', False)
+st.pyplot()
+st.header('Line graph of Licence which are resticted')
+st.line_chart(data=Ltyperes)
+st.header('line graph of licence which are Standard')
+st.line_chart(data=LTypestand)
+sns.jointplot(data=dataframe)
+st.pyplot()
